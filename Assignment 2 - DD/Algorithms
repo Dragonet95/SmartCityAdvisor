@@ -1,0 +1,46 @@
+public parkingLot[] elaboratesSuggestion(User u){
+    
+    /* From the user we can get its position, its past reservations
+    and understand if the gps is available and working*/ 
+    Position pos = u.position;
+    boolean gps = fetchGpsAvailability();
+    Reservation res[] = u.reservations;
+    
+    /* We suppose that a function that returns all the parking lots 
+    in the system is available */
+    parkingLot pLots[] = getParkingLotList();
+    
+    /* The parking lots are ordered by distance, removing the ones
+    in which the user have already made a reservation, the ones that
+    are currently full and then only the first three are returned */
+    pLots = orderByDistance(pLots);
+    
+    pLots = discardFullLots(pLots)
+    
+    pLots =discardPastReservations(res,pLots);
+    
+    pLots = getTopThree(pLots);
+    
+    return pLots;
+    
+}
+
+public void analyzeRequest (String username, String password, boolean super, boolean remember){
+    
+    /* The method from Login Manager is called only if the fields are all correct
+    and the right method is called based on the value of the "super" attribute
+    which helps recognizing a superuser */
+    
+    if(username.length()>8 && password.length()>8)
+        {
+            if (super) loginManager.superUserSignIn(username,password,remember)
+            else loginManager.superUserSignIn(username,password,remember)
+        } 
+    
+    /* In this case if the paremeters are not correct a possible "abort" method is called
+    to block the execution correctly */
+    
+    else abort();
+}
+
+
